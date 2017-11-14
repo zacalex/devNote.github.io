@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Swift,WKWebView,Cookie," />
+  <meta name="keywords" content="Android,Notification,Oreo," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="add cookie to the requestHeader: let urlrequest = URL(string: url)var request = URLRequest(url: urlrequest!)request.setValue(“cookieName = cookieValue”, forHTTPHeaderField: “Cookie”)myWebView.load(req">
-<meta name="keywords" content="Swift,WKWebView,Cookie">
+<meta name="description" content="For Android Oreo, we need to set Notification Channel  create a java class named NotificationUtils.javacode:  import android.annotation.TargetApi; import android.app.Notification; import android.app.N">
+<meta name="keywords" content="Android,Notification,Oreo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift - WKWebView - cookies don&#39;t work at the first request">
-<meta property="og:url" content="http://yoursite.com/2017/11/07/test/index.html">
+<meta property="og:title" content="Set Basic Android Notification">
+<meta property="og:url" content="http://yoursite.com/2017/11/13/AndroidNotificationBasic/index.html">
 <meta property="og:site_name" content="Cal in California">
-<meta property="og:description" content="add cookie to the requestHeader: let urlrequest = URL(string: url)var request = URLRequest(url: urlrequest!)request.setValue(“cookieName = cookieValue”, forHTTPHeaderField: “Cookie”)myWebView.load(req">
+<meta property="og:description" content="For Android Oreo, we need to set Notification Channel  create a java class named NotificationUtils.javacode:  import android.annotation.TargetApi; import android.app.Notification; import android.app.N">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2017-11-08T00:07:57.000Z">
+<meta property="og:updated_time" content="2017-11-14T01:44:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift - WKWebView - cookies don&#39;t work at the first request">
-<meta name="twitter:description" content="add cookie to the requestHeader: let urlrequest = URL(string: url)var request = URLRequest(url: urlrequest!)request.setValue(“cookieName = cookieValue”, forHTTPHeaderField: “Cookie”)myWebView.load(req">
+<meta name="twitter:title" content="Set Basic Android Notification">
+<meta name="twitter:description" content="For Android Oreo, we need to set Notification Channel  create a java class named NotificationUtils.javacode:  import android.annotation.TargetApi; import android.app.Notification; import android.app.N">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/11/07/test/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/13/AndroidNotificationBasic/"/>
 
 
 
 
 
-  <title>Swift - WKWebView - cookies don't work at the first request | Cal in California</title>
+  <title>Set Basic Android Notification | Cal in California</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/07/test/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/13/AndroidNotificationBasic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zacalex">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Swift - WKWebView - cookies don't work at the first request</h1>
+          <h1 class="post-title" itemprop="name headline">Set Basic Android Notification</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-07T12:01:13-08:00">
-                2017-11-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-13T17:36:38-08:00">
+                2017-11-13
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -342,9 +342,147 @@
       
 
       
-        <p>add cookie to the requestHeader:</p>
-<p>let urlrequest = URL(string: url)<br>var request = URLRequest(url: urlrequest!)<br>request.setValue(“cookieName = cookieValue”, forHTTPHeaderField: “Cookie”)<br>myWebView.load(request)</p>
+        <p>For Android Oreo, we need to set Notification Channel</p>
+<ol>
+<li><p>create a java class named NotificationUtils.java<br>code: </p>
+<pre><code>import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
+public class NotificationUtils extends ContextWrapper {
+
+    private NotificationManager mManager;
+    public static final String ANDROID_CHANNEL_ID = &quot;com.chikeandroid.tutsplustalerts.ANDROID&quot;;
+    public static final String IOS_CHANNEL_ID = &quot;com.chikeandroid.tutsplustalerts.IOS&quot;;
+    public static final String ANDROID_CHANNEL_NAME = &quot;ANDROID CHANNEL&quot;;
+    public static final String IOS_CHANNEL_NAME = &quot;IOS CHANNEL&quot;;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public NotificationUtils(Context base) {
+        super(base);
+        createChannels();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void createChannels() {
+
+        // create android channel
+        NotificationChannel androidChannel = new NotificationChannel(ANDROID_CHANNEL_ID,ANDROID_CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+        // Sets whether notifications posted to this channel should display notification lights
+        androidChannel.enableLights(true);
+        // Sets whether notification posted to this channel should vibrate.
+        androidChannel.enableVibration(true);
+        // Sets the notification light color for notifications posted to this channel
+        androidChannel.setLightColor(Color.GREEN);
+        // Sets whether notifications posted to this channel appear on the lockscreen or not
+        androidChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+
+        getManager().createNotificationChannel(androidChannel);
+
+        // create ios channel
+        NotificationChannel iosChannel = new NotificationChannel(IOS_CHANNEL_ID,
+                IOS_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+        iosChannel.enableLights(true);
+        iosChannel.enableVibration(true);
+        iosChannel.setLightColor(Color.GRAY);
+        iosChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        getManager().createNotificationChannel(iosChannel);
+    }
+
+    public NotificationManager getManager() {
+        if (mManager == null) {
+            mManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        return mManager;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Notification.Builder getAndroidChannelNotification(String title, String body) {
+        return new Notification.Builder(getApplicationContext(), ANDROID_CHANNEL_ID)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSmallIcon(android.R.drawable.stat_notify_more)
+                .setAutoCancel(true);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Notification.Builder getIosChannelNotification(String title, String body) {
+        return new Notification.Builder(getApplicationContext(), IOS_CHANNEL_ID)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSmallIcon(android.R.drawable.stat_notify_more)
+                .setAutoCancel(true);
+    }
+}
+2. create button event in your activty 
+
+    NotificationCompat.Builder notification;
+    private static final int uniqueID = 45612;
+
+    private NotificationUtils mNotificationUtils;
+    mNotificationUtils = new NotificationUtils(this);
+
+    public void notificationButtonClicked(View view){
+        Notification.Builder nb = mNotificationUtils.
+                getAndroidChannelNotification(&quot;titel&quot;, &quot;By &quot; + &quot;cal&quot;);
+        mNotificationUtils.getManager().notify(101, nb.build());
+
+        Log.e(&quot;test&quot;, &quot;clicked&quot;);
+    }
+</code></pre></li>
+</ol>
+<p>For lower version android, as official example:</p>
+<pre><code>import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+import android.view.View;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+    public void notificationClicked(View view){
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setContentTitle(&quot;My notification&quot;)
+                        .setContentText(&quot;Hello World!&quot;);
+        Intent resultIntent = new Intent(this, MainActivity.class);
+// Because clicking the notification opens a new (&quot;special&quot;) activity, there&apos;s
+// no need to create an artificial back stack.
+        PendingIntent resultPendingIntent =
+                PendingIntent.getActivity(
+                        this,
+                        0,
+                        resultIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+
+        mBuilder.setContentIntent(resultPendingIntent);
+        int mNotificationId = 001;
+// Gets an instance of the NotificationManager service
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+// Builds the notification and issues it.
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+        Log.e(&quot;Notification&quot;,&quot;clicked&quot;);
+
+    }
+}
+</code></pre>
       
     </div>
     
@@ -361,11 +499,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Swift/" rel="tag"># Swift</a>
+            <a href="/tags/Android/" rel="tag"># Android</a>
           
-            <a href="/tags/WKWebView/" rel="tag"># WKWebView</a>
+            <a href="/tags/Notification/" rel="tag"># Notification</a>
           
-            <a href="/tags/Cookie/" rel="tag"># Cookie</a>
+            <a href="/tags/Oreo/" rel="tag"># Oreo</a>
           
         </div>
       
@@ -378,15 +516,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/11/07/test/" rel="next" title="Swift - WKWebView - cookies don't work at the first request">
+                <i class="fa fa-chevron-left"></i> Swift - WKWebView - cookies don't work at the first request
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/13/AndroidNotificationBasic/" rel="prev" title="Set Basic Android Notification">
-                Set Basic Android Notification <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
